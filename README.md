@@ -2,8 +2,7 @@
 
 Create application icon for Android & iOS (Only tested on Mac OS)
 
-[![NPM Version](https://img.shields.io/npm/v/detox.svg?style=flat)](https://www.npmjs.com/package/appicon-maker)
-[![NPM Downloads](https://img.shields.io/npm/dm/detox.svg?style=flat)](https://www.npmjs.com/package/appicon-maker)
+[![NPM Version](https://img.shields.io/badge/npm-1.0.1-blue.svg)](https://www.npmjs.com/package/appicon-maker)
 
 <img src="https://media.giphy.com/media/5dWbtO3FwbmqFUbQtB/giphy.gif" />
 
