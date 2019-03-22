@@ -1,0 +1,90 @@
+{
+    "android": [
+        {
+            "name": "ldpi",
+            "dimen": 36
+        },
+        {
+            "name": "mdpi",
+            "dimen": 48
+        },
+        {
+            "name": "hdpi",
+            "dimen": 72
+        },
+        {
+            "name": "xhdpi",
+            "dimen": 96
+        },
+        {
+            "name": "xxhdpi",
+            "dimen": 144
+        },
+        {
+            "name": "xxxhdpi",
+            "dimen": 192
+        }
+    ],
+    "iOS": [
+        {
+            "name": "Icon-App-20x20@1x",
+            "dimen": 20
+        },
+        {
+            "name": "Icon-App-20x20@2x",
+            "dimen": 40
+        },
+        {
+            "name": "Icon-App-20x20@3x",
+            "dimen": 60
+        },
+        {
+            "name": "Icon-App-29x29@1x",
+            "dimen": 29
+        },
+        {
+            "name": "Icon-App-29x29@2x",
+            "dimen": 58
+        },
+        {
+            "name": "Icon-App-29x29@3x",
+            "dimen": 87
+        },
+        {
+            "name": "Icon-App-40x40@1x",
+            "dimen": 40
+        },
+        {
+            "name": "Icon-App-40x40@2x",
+            "dimen": 80
+        },
+        {
+            "name": "Icon-App-40x40@3x",
+            "dimen": 120
+        },
+        {
+            "name": "Icon-App-60x60@2x",
+            "dimen": 120
+        },
+        {
+            "name": "Icon-App-60x60@3x",
+            "dimen": 180
+        },
+        {
+            "name": "Icon-App-76x76@1x",
+            "dimen": 76
+        },
+        {
+            "name": "Icon-App-76x76@2x",
+            "dimen": 152
+        },
+        {
+            "name": "Icon-App-83.5x83.5@2x",
+            "dimen": 167
+        },
+        {
+            "name": "ItunesArtwork@2x",
+            "dimen": 1024
+        }
+    ]
+}

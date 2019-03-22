@@ -1,0 +1,34 @@
+{
+    "name": "appicon-maker",
+    "version": "1.0.0",
+    "description": "Create application icon for Android & iOS",
+    "main": "index.js",
+    "author": "HTSI",
+    "license": "MIT",
+    "repository": {
+        "url": "https://github.com/sunnypoint-vn/appicon-maker.git",
+        "type": "git"
+    },
+    "dependencies": {
+        "@jimp/plugin-circle": "^0.6.0",
+        "fs-extra": "^7.0.1",
+        "jimp": "^0.6.0",
+        "mime": "^2.4.0",
+        "throw-error": "^1.0.0"
+    },
+    "pkg": {
+        "assets": [
+            "assets/**/*"
+        ]
+    },
+    "bin": "index.js",
+    "devDependencies": {
+        "eslint": "^5.15.3",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-plugin-import": "^2.16.0",
+        "flow-bin": "^0.95.1"
+    },
+    "scripts": {
+        "flow": "flow"
+    }
+}
