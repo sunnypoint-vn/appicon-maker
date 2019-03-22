@@ -8,6 +8,7 @@ Create application icon for Android & iOS (Only tested on Mac OS)
 
 ## Usage
 
+#### Run with NodeJS
 ```
 git clone
 cd create-app-icon
@@ -15,7 +16,11 @@ yarn install
 node index.js
 ```
 
-Drop your image into terminal & waiting it finish
+#### Run without setup
+
+Download binary from [release](https://github.com/sunnypoint-vn/appicon-maker/releases)
+
+Drop your image into terminal & waiting it finish (Dimension should be 1024x1024)
 
 ## Third-party
 
