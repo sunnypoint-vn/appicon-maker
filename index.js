@@ -19,6 +19,8 @@ const MIME = require('mime')
 // Image Processing Lib
 const Jimp = require('jimp')
 
+const chalk = require('chalk')
+
 /* eslint-disable */
 // Add writeSync for Jimp
 Jimp.prototype.writeSync = function (path, callback) {
@@ -47,14 +49,14 @@ const variantTypes = ['Alpha', 'Beta', 'Production']
 
 let outputDirPath // Final Output Directory
 
-function createAndroidAppIcon(path, variant, callback) {
+function createAndroidAppIcon(path, variant, mask, callback) {
     const dpis = Array.from(dimens.android)
     const makeIcon = (items) => {
         if (items && items.length > 0) {
             const { name, dimen } = items[0]
             const iconPath = `${path}/mipmap-${name}`
             FS.mkdirSync(iconPath)
-            const clone = variant.clone()
+            const clone = variant.clone().mask(mask)
             clone.resize(dimen, Jimp.AUTO).writeSync(`${iconPath}/ic_launcher.png`, () => {
                 items.splice(0, 1)
                 makeIcon(items)
@@ -87,16 +89,43 @@ function createiOSAppIcon(path, variant, callback) {
     makeIcon(sizes)
 }
 
-function createAssetsFolder(images) {
+function exit(error) {
+    error ? console.log(`🙏 ${chalk.red(error)}`) : console.log(chalk.green('🎉 Tadaaaa!!! Checking output folder, please!'))
+    process.exit()
+}
+
+function checkResources(images) {
     if (FS.existsSync(outputDirPath)) {
         FS.removeSync(outputDirPath)
     }
     FS.mkdirSync(outputDirPath)
 
+    if (images[0]) {
+        const { bitmap: { width, height }} = images[0]
+        if (width !== height) {
+            exit('Width and Height of image should be same size')
+        }
+        if (width < 1024) {
+            exit('Image\'s Size should be greater than 1024')
+        }
+        if (images[0].hasAlpha()) {
+            exit('Image should not contain Alpha channel')
+        }
+        if (width > 1024) {
+            images[0] = images[0].resize(1024, Jimp.AUTO)
+        }
+
+        createAssetsFolder(images)
+    } else {
+        exit('Cannot read data from image')
+    }
+}
+
+function createAssetsFolder(images) {
     const createPlatformFolder = (platforms) => {
         if (platforms && platforms.length > 0) {
             const platform = platforms[0]
-            console.log('Creating AppIcon for: ', platform)
+            console.log(chalk.blue('🚀 Creating AppIcon for: '), chalk.bgGreen(platform))
             const platformDirPath = `${outputDirPath}/${platform}`
             FS.mkdirSync(platformDirPath)
 
@@ -113,11 +142,7 @@ function createAssetsFolder(images) {
                     } else {
                         variantClone.blit(images[3], 368, 798)
                     }
-
-                    if (platform === 'Android') {
-                        variantClone.mask(images[1])
-                    }
-
+                    
                     const variantDirPath = `${platformDirPath}/${platform}_App_Icon${suffix}`
 
                     FS.mkdirSync(variantDirPath)
@@ -130,7 +155,7 @@ function createAssetsFolder(images) {
                             createVariantFolder(variants)
                         })
                     } else if (platform === 'Android') {
-                        createAndroidAppIcon(variantDirPath, variantClone, () => {
+                        createAndroidAppIcon(variantDirPath, variantClone, images[1], () => {
                             variants.splice(0, 1)
                             createVariantFolder(variants)
                         })
@@ -143,8 +168,7 @@ function createAssetsFolder(images) {
 
             createVariantFolder(Array.from(variantTypes))
         } else {
-            console.log('Done')
-            process.exit()
+            exit()
         }
     }
 
@@ -153,7 +177,7 @@ function createAssetsFolder(images) {
 
 function main() {
     rl.question('Drop your image here: ', (path) => {
-        const trim = path.trim()
+        const trim = path.trimEnd().replace(/\\/g, '')
         if (!trim || !FS.pathExistsSync(trim)) {
             console.log('Invalid path')
             process.exit()
@@ -169,7 +193,9 @@ function main() {
 
         Promise.all([readSource, readMask, readAlphaTag, readBetaTag]).then((images) => {
             // images: [ 0: Source, 1: Mask, 2: AlphaTag, 3: BetaTag]
-            createAssetsFolder(images)
+            checkResources(images)
+        }).catch(e => {
+            exit(e.message)
         })
     })
 }

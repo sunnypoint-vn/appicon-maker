@@ -1,6 +1,6 @@
 {
     "name": "appicon-maker",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "Create application icon for Android & iOS",
     "main": "index.js",
     "author": "HTSI",
@@ -10,6 +10,7 @@
         "type": "git"
     },
     "dependencies": {
+        "chalk": "^2.4.2",
         "fs-extra": "^7.0.1",
         "jimp": "^0.6.0",
         "mime": "^2.4.0",

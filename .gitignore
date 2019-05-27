@@ -7,3 +7,4 @@ default.realm*
 # BUCK
 buck-out/
 \.buckd/
+bin/
